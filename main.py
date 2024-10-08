@@ -1,10 +1,11 @@
 import random
 from string import ascii_lowercase, ascii_uppercase, digits
 import sqlite3
+
 symbol_library = ['!','@','#','$','%','&','*']
 
 # password table
-conn=sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+conn=sqlite3.connect('.\\Passworddata.db')
 cur=conn.cursor()
 cur.execute('''
 CREATE TABLE IF NOT EXISTS password(
@@ -16,7 +17,7 @@ password text
 conn.close()
 
 # user registery
-conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+conn = sqlite3.connect('.\\Passworddata.db')
 cur = conn.cursor()
 cur.execute('''
 CREATE TABLE IF NOT EXISTS user(
@@ -51,7 +52,7 @@ class Password_Generator:
         return final_password
 
 def reorder_ids():
-    conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+    conn = sqlite3.connect('\\Passworddata.db')
     cur = conn.cursor()
 
 
@@ -101,7 +102,7 @@ def User_input():
 
 def View():
     print('-' * 20)
-    conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+    conn = sqlite3.connect('.\\Passworddata.db')
     cur = conn.cursor()
     V=cur.execute(
         '''SELECT * FROM password''',
@@ -127,7 +128,7 @@ def Delete():
     except ValueError:
         print('Plz enter the row number!')
 
-    conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+    conn = sqlite3.connect('.\\Passworddata.db')
     cur = conn.cursor()
     conn.execute('''DELETE FROM password WHERE id=?''',a)
     conn.commit()
@@ -142,7 +143,7 @@ def program():
             P,L,U,S,D=User_input()
             I=Password_Generator(int(L),int(U),int(S),int(D))
             F=I.generate()
-            conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+            conn = sqlite3.connect('.\\Passworddata.db')
             cur = conn.cursor()
             cur.execute(
                 '''INSERT INTO password(name,password) VALUES(?,?)''',(P,F)
@@ -160,7 +161,7 @@ def program():
             Delete()
 
 def forgot_password():
-    conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+    conn = sqlite3.connect('.\\Passworddata.db')
     cur = conn.cursor()
     V = cur.execute(
         '''SELECT * FROM user''',
@@ -195,7 +196,7 @@ def User_register():
         else:
             break
 
-    conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+    conn = sqlite3.connect('.\\Passworddata.db')
     cur = conn.cursor()
     cur.execute(
         '''INSERT INTO user(username,password,securityquestion) VALUES(?,?,?)''', (us,ps,sq)
@@ -205,7 +206,7 @@ def User_register():
     print('-' * 20)
 
 def user_login():
-    conn = sqlite3.connect('C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+    conn = sqlite3.connect('.\\Passworddata.db')
     cur = conn.cursor()
     V = cur.execute(
         '''SELECT * FROM user''',
@@ -238,7 +239,7 @@ def user_login():
 def user_check():
     while True:
         conn = sqlite3.connect(
-            'C:\\Users\\mamad salimi\\Desktop\\PY\\project\\password generator final\\Passworddata.db')
+            '.\\Passworddata.db')
         cur = conn.cursor()
         _User = cur.execute(
             '''SELECT * FROM user''',
